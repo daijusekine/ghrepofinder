@@ -1,0 +1,24 @@
+extends layout
+
+block content
+  h1= title
+  p Total count: #{total_count}
+  table(style='width:100%', border='1')
+    tr
+      th Repository
+      th Description
+      th Language
+      th Owner
+      th Stars
+      th Bookmark
+    each val in search_results
+      tr
+        td
+          a(href=`${val.url}`) #{val.full_name}
+        td= val.description
+        td= val.language
+        td= val.owner
+        td= val.stargazers_count
+        td
+          form(method="POST" action="/bookmark?data=" + JSON.stringify(val))
+            button(class=buttonClass type="submit") Add

@@ -1,0 +1,30 @@
+extends layout
+
+block content
+  h1= title
+  p Welcome to #{title}
+
+
+  p
+    form(method="GET" action="/search")
+      input(type="text" name="repo" id="searchWord" class="form-control" required autofocus)
+      button(class=buttonClass type="submit") Search
+
+  h2 Bookmarks
+  form(method="POST" action="/delete_bookmark")
+    button(class=buttonClass type="submit") Delete All
+  table(style='width:100%', border='1')
+    tr
+      th Repository
+      th Description
+      th Language
+      th Owner
+      th Stars
+    each val in bookmarks
+      tr
+        td
+          a(href=`${val.url}`) #{val.full_name}
+        td= val.description
+        td= val.language
+        td= val.owner
+        td= val.star
